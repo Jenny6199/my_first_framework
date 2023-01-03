@@ -1,3 +1,6 @@
 from rhinoceros.main import Rhinoceros
+from urls import urlpatterns
 
-app = Rhinoceros()
+app = Rhinoceros(
+    urls=urlpatterns
+)
