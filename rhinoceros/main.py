@@ -3,6 +3,7 @@ from typing import List, Type
 from rhinoceros.exceptions import NotAllowed
 from rhinoceros.urls import Url
 from rhinoceros.view import View
+from rhinoceros.request import Request
 
 
 class Rhinoceros:
@@ -43,3 +44,11 @@ class Rhinoceros:
             match = re.match(path.url, url)
             if match is not None:
                 return path.view
+
+    def _get_view(self, environ) -> View:
+        raw_url = environ['PATH_INFO']
+        view = self._find_view(raw_url)()
+        return view
+
+    def _get_request(self, environ: dict):
+        return Request(environ)
